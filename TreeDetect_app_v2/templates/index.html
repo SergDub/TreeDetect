@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333;">
+    <div style="text-align: center; padding: 20px; background-color: #4CAF50; color: white;">
+        <h1>Welcome to TreeDetect</h1>
+        <p style="font-size: 1.2em;">Upload an image to analyze tree detection results.</p>
+    </div>
+
+    <div style="text-align: center; padding: 50px;">
+        <h2>Upload Image for analysis</h2>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <label for="file-upload" 
+                   style="padding: 10px 20px; font-size: 1.1em; background-color: #4CAF50; color: white; border: none; cursor: pointer; display: inline-block;">
+                Choose file
+            </label>
+            <input id="file-upload" type="file" name="file" accept="image/png, image/jpeg" required 
+                   style="display: none;">
+            <span id="file-name" style="margin-left: 10px;">No file selected</span>
+            <br><br>
+            <button type="submit" style="padding: 10px 20px; font-size: 1.1em; background-color: #4CAF50; color: white; border: none; cursor: pointer;">
+                Process
+            </button>
+        </form>
+
+        {% if result_image %}
+            <h2>Results:</h2>
+            <p style="font-size: 1.1em;">Detected trees: {{ tree_count }}</p>
+            <img src="{{ result_image }}" alt="Processed image" style="max-width: 80%; height: auto; margin: 20px 0;">
+            <br>
+            <a href="{{ result_image }}" download style="font-size: 1.1em; text-decoration: none; color: #4CAF50;">
+                Download Processed Image
+            </a>
+        {% endif %}
+    </div>
+
+    <script>
+        document.getElementById("file-upload").addEventListener("change", function() {
+            var fileName = this.files[0] ? this.files[0].name : "No file selected";
+            document.getElementById("file-name").textContent = fileName;
+        });
+    </script>
+</body>
+</html>
